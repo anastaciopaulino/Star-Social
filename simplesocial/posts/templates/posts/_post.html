@@ -1,0 +1,30 @@
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12 my-3">
+			<div class="card">
+				<h3 class="card-header">
+					{% if post.group %}
+						<span class="fas fa-users"></span>
+						<a href="#">{{ post.group.name }}</a></span>
+					{% endif %}
+				</h3>
+				<div class="card-body">	
+					
+						<p class="card-text text-justify">
+							{{ post.message_html|safe }}
+						</p>
+				</div>
+				<div class="card-footer">
+					<span class="username"><a href="{% url 'posts:for_user' username=post.user.username %}">@{{ post.user.username }}</a></span>
+					<time class="time"><a href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{ post.created_at }}</a></time>
+					{% if user.is_authenticated and post.user == user and not hide_delete %}
+					<a href="{% url 'posts:delete' pk=post.pk %}" title="delete" class="btn btn-simple">
+						<span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+						<span class="text-danger icon-label">Delete</span>
+					</a>
+				{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
